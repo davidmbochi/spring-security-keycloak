@@ -1,0 +1,32 @@
+spring:
+  application:
+    name: spring-security-keycloak
+  datasource:
+    url: jdbc:postgresql://localhost:5432/javawhizz
+    username: javawhizz
+    password: javawhizz
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    database: postgresql
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    properties:
+      hibernate:
+        format_sql: true
+
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8080/realms/Alibou
+          jwk-set-uri: ${spring.security.oauth2.resourceserver.jwt.issuer-uri}/protocol/openid-connect/certs
+server:
+  port: 8081
+
+jwt:
+  auth:
+    converter:
+      resource-id: alibou-rest-api
+      principle-attribute: preferred_username
